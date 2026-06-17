@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0] - 2026-06-17
+
+### Erste stabile Version
+
+- SKILL.md auf Version 1.0 gesetzt — produktionsreif und vollständig
+- README.md: Abschnitt "Was enthält v1.0?" ergänzt
+- GitHub Topics gesetzt für maximale Auffindbarkeit
+- Alle Inhalte final geprüft und freigegeben
+
+---
+
 ## [0.3.0] - 2026-06-17
 
 ### Neu

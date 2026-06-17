@@ -1,6 +1,6 @@
 # MGD App Updater Skill
 
-Version 0.2 | [github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill](https://github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill)
+Version 1.0 | [github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill](https://github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill)
 
 ---
 

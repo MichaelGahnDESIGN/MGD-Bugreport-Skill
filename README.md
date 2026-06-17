@@ -45,6 +45,20 @@ Außerdem fehlte bislang ein **hochwertiges deutschsprachiges Referenzwerk** zum
 
 ---
 
+## Was enthält v1.0?
+
+- Professionelles README auf Deutsch
+- Vollständiges Wiki mit 17 Kapiteln
+- Mermaid-Diagramme in Wiki und README
+- Echte Referenzarchitekturen für 15 Plattformen und Technologien
+- Release 1.0.0 auf GitHub
+- GitHub Topics für maximale Auffindbarkeit
+
+**Geplant für v1.x:**
+- Referenzimplementierung für Flutter, Swift, PHP und API-Clients
+
+---
+
 ## Unterstützte Technologien
 
 ### Desktop
