@@ -1,45 +1,47 @@
-# Phase-3-Checkliste — Automatischer Updater
+## Checkliste Phase 3 — Vollständiges System
 
-Alle Punkte aus Phase-2-Checkliste müssen erfüllt sein.
+Aufbauend auf Phase 1 und Phase 2:
 
-## Voraussetzungen
+- [ ] Floating Button implementiert
+- [ ] Hub-Menü öffnet sich korrekt
+- [ ] Formular für Fehler-Melden implementiert
+- [ ] Pflichtfelder validiert (Titel, Beschreibung)
+- [ ] Schweregrad wählbar
+- [ ] Daten werden per HTTPS gesendet
+- [ ] Erfolgs- und Fehlermeldung angezeigt
+- [ ] Datenschutzhinweis verlinkt
+- [ ] Button deaktivierbar via Einstellung
+- [ ] Netzwerkfehler wird silent behandelt (App stürzt nicht ab)
+- [ ] Opt-out für technische Daten implementiert
+- [ ] Gesendet in lokalem Log (für Debugging)
+- [ ] Screenshot-Funktion implementiert (plattformspezifisch)
+- [ ] Screenshot-Vorschau vor dem Senden
+- [ ] Opt-out für Screenshot
+- [ ] Technische Daten automatisch erfasst
+- [ ] Anhänge möglich (max. Dateigröße begrenzt)
+- [ ] Backend-API implementiert
+- [ ] Datenbankmodell für Reports
+- [ ] Admin-Bereich erreichbar
+- [ ] Status-Tracking (Neu / In Bearbeitung / Behoben)
+- [ ] Ideen-Formular implementiert
+- [ ] Feedback-Formular implementiert
+- [ ] Rate-Limiting auf Backend
+- [ ] Eingaben werden serverseitig validiert
+- [ ] Datei-Uploads sicher (MIME-Check, Größe)
 
-- [ ] Release-Prozess ist stabil und dokumentiert
-- [ ] Alle Builds werden vor Release getestet
-- [ ] Code-Signierung ist vorhanden und aktiv (plattformabhängig)
-- [ ] Integritätsprüfung (SHA-256 und/oder Signatur) existiert
-- [ ] Rollback-Strategie ist schriftlich definiert
+Zusätzlich in Phase 3:
 
-## Signierung
-
-- [ ] macOS: App ist code-signiert mit Apple Developer Certificate
-- [ ] macOS: App ist notarisiert (notarytool)
-- [ ] Windows: Installer ist signiert (empfohlen: EV-Zertifikat)
-- [ ] Linux: Paket-signierung nach gewähltem Format
-
-## Installationsprozess
-
-- [ ] Installation erfolgt erst nach erfolgreicher Verifikation
-- [ ] Kein Ausführen von Remote-Skripten
-- [ ] Kein Ersetzen von Systemdateien ohne explizite Notwendigkeit
-- [ ] Admin-Rechte werden nur angefordert wenn wirklich nötig
-- [ ] Installationsfehler werden erkannt und behandelt
-
-## Rollback
-
-- [ ] Backup der aktuellen Version vor Installation erstellt
-- [ ] Fehler nach Installation werden erkannt (Absturz, Start schlägt fehl)
-- [ ] Automatischer Rollback bei erkanntem Fehler
-- [ ] Nutzer wird über Rollback informiert
-
-## Nutzer-Einwilligung
-
-- [ ] Update-Modell ist definiert (immer fragen / opt-in / automatisch)
-- [ ] Nutzer kann Auto-Updates deaktivieren (außer bei kritischen Sicherheits-Patches)
-- [ ] Nutzer wird mindestens benachrichtigt bevor ein Update installiert wird
-
-## Monitoring
-
-- [ ] Erfolgreiche und fehlgeschlagene Updates werden geloggt
-- [ ] Logs enthalten keine Secrets oder persönliche Daten
-- [ ] Ungewöhnliche Update-Fehler können erkannt und analysiert werden
+- [ ] GitHub-Integration konfiguriert
+- [ ] Bugs werden automatisch als GitHub Issues erstellt
+- [ ] GitHub-Token nur im Backend (nie im Client)
+- [ ] Webhook: GitHub Issue closed → Status aktualisieren
+- [ ] Labels korrekt gesetzt (bug, idea, priority:*)
+- [ ] E-Mail-Benachrichtigung bei neuen Reports
+- [ ] Hilfe-Anfordern Funktion implementiert
+- [ ] Admin: Suche und Filter für alle Report-Typen
+- [ ] Admin: Bearbeiter-Zuweisung
+- [ ] Admin: Kommentar-Funktion
+- [ ] Datenschutzerklärung verlinkt im Hub
+- [ ] DSGVO: Daten auf Anfrage löschbar
+- [ ] Reports nach 2 Jahren automatisch gelöscht (konfigurierbar)
+- [ ] Screenshots verschlüsselt gespeichert

@@ -1,0 +1,13 @@
+{
+  "type": "feedback",
+  "message": "...",
+  "rating": null,
+  "_rating_note": "integer 1-5 or null",
+  "category": "general",
+  "_category_options": ["general", "praise", "criticism", "usability"],
+  "metadata": {
+    "source": "feedback-hub",
+    "hubVersion": "1.0.0",
+    "submittedAt": "2026-06-17T10:00:00Z"
+  }
+}

@@ -1,124 +1,209 @@
-# Beispiel: Godot
+# Godot GDScript – Feedback Hub Integration
 
-Godot-Spiele können PCK-Dateien für Content-Updates nutzen. Client-Updates (das Spiel selbst) werden wie normale Desktop-Apps ausgeliefert.
+Feedback-Hub als Autoload-Singleton plus CanvasLayer-Overlay für den floating Button. Screenshot via `Viewport.get_texture()`.
 
----
+## Projektstruktur
 
-## PCK-Dateien für Content-Updates
+```
+example-app/
+├── autoload/
+│   └── FeedbackService.gd    ← Autoload-Singleton
+├── ui/
+│   ├── FeedbackButton.tscn   ← CanvasLayer mit Button
+│   └── FeedbackModal.tscn    ← Panel mit Formular
+└── project.godot
+```
 
-Godot kann `.pck`-Dateien zur Laufzeit nachladen. Das erlaubt Content-Updates ohne Neuinstallation des Spiels.
+## project.godot – Autoload registrieren
+
+```ini
+[autoload]
+FeedbackService="*res://autoload/FeedbackService.gd"
+```
+
+## FeedbackService Autoload
 
 ```gdscript
-# content_updater.gd
+# autoload/FeedbackService.gd
+extends Node
 
-const CONTENT_MANIFEST_URL = "https://updates.example.com/example-game/content/manifest.json"
-const DOWNLOAD_DIR = "user://content/"
+const API_URL = "https://feedback.example.com/api/report"
 
-func check_content_updates() -> void:
-    var request = HTTPRequest.new()
-    add_child(request)
-    request.request_completed.connect(_on_manifest_received)
-    request.request(CONTENT_MANIFEST_URL)
+signal report_submitted(success: bool)
 
-func _on_manifest_received(result: int, _code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-    if result != OK:
-        return
-
-    var json = JSON.parse_string(body.get_string_from_utf8())
-    if json == null:
-        return
-
-    for patch in json.get("patches", []):
-        _download_patch(patch)
-
-func _download_patch(patch: Dictionary) -> void:
-    var url: String = patch.get("url", "")
-    var expected_sha256: String = patch.get("sha256", "")
-
-    if url.is_empty():
-        return
-
-    var request = HTTPRequest.new()
-    add_child(request)
-    request.request_completed.connect(
-        func(result, _code, _headers, body):
-            _on_patch_downloaded(result, body, patch, expected_sha256)
-    )
-    request.request(url)
-
-func _on_patch_downloaded(result: int, body: PackedByteArray, patch: Dictionary, expected_hash: String) -> void:
-    if result != OK:
-        return
-
-    # SHA-256 prüfen
-    var actual_hash = body.sha256_text()
-    if actual_hash != expected_hash:
-        push_error("Checksumme ungültig für Patch: " + patch.get("id", ""))
-        return
-
-    # PCK speichern
-    var path = DOWNLOAD_DIR + patch.get("file", "content.pck")
-    DirAccess.make_dir_recursive_absolute(DOWNLOAD_DIR)
-
-    var file = FileAccess.open(path, FileAccess.WRITE)
-    if file:
-        file.store_buffer(body)
-        file.close()
-        ProjectSettings.load_resource_pack(path)
-        print("Patch geladen: ", patch.get("id", ""))
-```
-
----
-
-## Client-Update-Manifest
-
-```json
-{
-  "app": "example-game-godot",
-  "platform": "linux",
-  "latestVersion": "0.8.0",
-  "minimumVersion": "0.5.0",
-  "downloadUrl": "https://updates.example.com/example-game/releases/example-game-0.8.0-linux.AppImage",
-  "sha256": "a3f5b2c8d1e4f7a0b9c2d5e8f1a4b7c0d3e6f9a2b5c8d1e4f7a0b3c6d9e2f5a8",
-  "changelog": [
-    "Neue Karte: Nebelwald",
-    "Gegner-KI verbessert",
-    "Performance-Verbesserungen"
-  ],
-  "forceUpdate": false
-}
-```
-
----
-
-## Content-Manifest
-
-```json
-{
-  "contentVersion": "2026-06-17-v2",
-  "minimumClientVersion": "0.5.0",
-  "patches": [
-    {
-      "id": "nebelwald-map",
-      "file": "nebelwald.pck",
-      "url": "https://cdn.example.com/example-game/content/nebelwald.pck",
-      "sha256": "b4c6d8e0f2a4b6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4c6",
-      "size": 8234567,
-      "required": true
+# System-Informationen sammeln
+func _get_system_info() -> Dictionary:
+    return {
+        "os": OS.get_name(),
+        "os_version": OS.get_version(),
+        "arch": Engine.get_architecture_name() if Engine.has_method("get_architecture_name") else "unknown",
+        "app_version": ProjectSettings.get_setting("application/config/version", "1.0.0"),
+        "screen_width": DisplayServer.screen_get_size().x,
+        "screen_height": DisplayServer.screen_get_size().y,
+        "engine_version": Engine.get_version_info().get("string", "unknown"),
     }
-  ]
-}
+
+# Screenshot vom aktuellen Viewport aufnehmen
+# Wichtig: Nur auf Desktop unbedenklich – auf Mobile Nutzer fragen!
+func take_screenshot() -> String:
+    await RenderingServer.frame_post_draw  # warten bis Frame gerendert ist
+    var viewport_texture: ViewportTexture = get_viewport().get_texture()
+    var image: Image = viewport_texture.get_image()
+    if image == null:
+        return ""
+    var png_bytes: PackedByteArray = image.save_png_to_buffer()
+    return Marshalls.raw_to_base64(png_bytes)
+
+# Bug melden (inkl. Screenshot)
+func submit_bug(title: String, description: String,
+                severity: String = "medium") -> void:
+    var screenshot = await take_screenshot()
+    _send_report("bug", title, description, severity, screenshot)
+
+# Idee vorschlagen (kein Screenshot)
+func submit_idea(title: String, description: String) -> void:
+    _send_report("idea", title, description, "low", "")
+
+# Allgemeines Feedback
+func submit_feedback(title: String, description: String) -> void:
+    _send_report("feedback", title, description, "low", "")
+
+func _send_report(type: String, title: String, description: String,
+                  severity: String, screenshot: String) -> void:
+    var body := {
+        "type": type,
+        "title": title,
+        "description": description,
+        "severity": severity,
+        "screenshot": screenshot if screenshot != "" else null,
+        "system_info": _get_system_info(),
+        "created_at": Time.get_datetime_string_from_system(true),  # UTC ISO 8601
+    }
+
+    var json_string := JSON.stringify(body)
+    var headers := PackedStringArray([
+        "Content-Type: application/json",
+        "Accept: application/json",
+    ])
+
+    var http := HTTPRequest.new()
+    add_child(http)
+    http.request_completed.connect(
+        func(result, response_code, _headers, _body):
+            var success: bool = result == HTTPRequest.RESULT_SUCCESS \
+                                and response_code == 201
+            if not success:
+                push_warning("Feedback-Fehler: result=%d, code=%d" % [result, response_code])
+            report_submitted.emit(success)
+            http.queue_free()
+    )
+    var error := http.request(API_URL, headers, HTTPClient.METHOD_POST, json_string)
+    if error != OK:
+        push_error("HTTPRequest fehlgeschlagen: %s" % error)
+        http.queue_free()
 ```
 
----
+## FeedbackButton Scene (CanvasLayer)
 
-## Sicherheitshinweis
+```gdscript
+# ui/FeedbackButton.gd
+# Hängt an einem CanvasLayer mit layer = 99 (immer über dem Spiel-Content)
+extends CanvasLayer
 
-PCK-Dateien werden in der Godot-Engine als vertrauenswürdig behandelt. Niemals PCK-Dateien von unverifizierten Quellen laden.
+@onready var button: Button = $MarginContainer/FeedbackButton
+@onready var modal: Control = $FeedbackModal
 
-Immer:
-- SHA-256 der heruntergeladenen PCK prüfen vor dem Laden
-- Nur HTTPS für Downloads
-- Keine PCK-URLs aus Nutzereingaben
+func _ready() -> void:
+    layer = 99  # Hoher Layer-Wert: über allem anderen Content
+    button.pressed.connect(_on_button_pressed)
+    FeedbackService.report_submitted.connect(_on_report_submitted)
 
-→ Wiki: [`../wiki/12-Spiele-und-Content-Updates.md`](../wiki/12-Spiele-und-Content-Updates.md)
+func _on_button_pressed() -> void:
+    modal.show()
+
+func _on_report_submitted(success: bool) -> void:
+    modal.hide()
+    var msg := "Feedback gesendet! Danke." if success \
+               else "Fehler – bitte erneut versuchen."
+    # Zeige kurze Meldung (z.B. über ein Label oder Toast)
+    _show_toast(msg)
+
+func _show_toast(text: String) -> void:
+    var label := Label.new()
+    label.text = text
+    add_child(label)
+    await get_tree().create_timer(3.0).timeout
+    label.queue_free()
+```
+
+## FeedbackModal Script
+
+```gdscript
+# ui/FeedbackModal.gd
+extends PanelContainer
+
+@onready var type_option: OptionButton = $VBox/TypeOption
+@onready var title_input: LineEdit    = $VBox/TitleInput
+@onready var desc_input: TextEdit     = $VBox/DescInput
+@onready var send_button: Button      = $VBox/HBox/SendButton
+@onready var cancel_button: Button    = $VBox/HBox/CancelButton
+
+func _ready() -> void:
+    hide()
+    cancel_button.pressed.connect(hide)
+    send_button.pressed.connect(_on_send)
+
+    type_option.add_item("Bug melden")
+    type_option.add_item("Idee vorschlagen")
+    type_option.add_item("Allgemeines Feedback")
+
+func _on_send() -> void:
+    var title := title_input.text.strip_edges()
+    if title.is_empty():
+        return
+    var desc := desc_input.text.strip_edges()
+    send_button.disabled = true
+    send_button.text = "Sende..."
+
+    match type_option.selected:
+        0: await FeedbackService.submit_bug(title, desc)
+        1: FeedbackService.submit_idea(title, desc)
+        2: FeedbackService.submit_feedback(title, desc)
+
+    send_button.disabled = false
+    send_button.text = "Senden"
+    title_input.clear()
+    desc_input.clear()
+```
+
+## FeedbackButton.tscn (Szenen-Struktur)
+
+```
+CanvasLayer (layer=99)          ← FeedbackButton.gd
+├── MarginContainer
+│   └── Button ("💬 Feedback")  ← anchors: bottom-right, margin 20px
+└── FeedbackModal (PanelContainer, hidden) ← FeedbackModal.gd
+    └── VBoxContainer
+        ├── Label "Feedback senden"
+        ├── OptionButton (type_option)
+        ├── LineEdit (title_input)
+        ├── TextEdit (desc_input)
+        └── HBoxContainer
+            ├── Button "Abbrechen" (cancel_button)
+            └── Button "Senden" (send_button)
+```
+
+## Warnung: Screenshot-Datenschutz auf Mobile
+
+```gdscript
+# Vor dem Screenshot auf mobilen Plattformen immer prüfen:
+func take_screenshot_safely() -> String:
+    if OS.get_name() in ["Android", "iOS"]:
+        # Nutzer-Bestätigung anfordern, bevor Screenshot gemacht wird
+        var confirmed = await _ask_user_permission()
+        if not confirmed:
+            return ""
+    return await take_screenshot()
+```
+
+Auf Android und iOS gelten besondere Datenschutzregeln. Nutzer müssen explizit zustimmen, bevor ein Screenshot des Bildschirms an externe Server gesendet wird.

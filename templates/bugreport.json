@@ -1,0 +1,29 @@
+{
+  "type": "bug",
+  "title": "...",
+  "description": "...",
+  "severity": "medium",
+  "_severity_options": ["low", "medium", "high", "critical"],
+  "steps": ["Step 1", "Step 2"],
+  "expected": "...",
+  "actual": "...",
+  "screenshot": null,
+  "_screenshot_note": "base64 string or URL",
+  "attachments": [],
+  "contact": "",
+  "systemInfo": {
+    "os": "...",
+    "osVersion": "...",
+    "appVersion": "...",
+    "appBuild": "...",
+    "language": "de",
+    "timezone": "Europe/Berlin",
+    "screenResolution": "...",
+    "currentRoute": "..."
+  },
+  "metadata": {
+    "source": "feedback-hub",
+    "hubVersion": "1.0.0",
+    "submittedAt": "2026-06-17T10:00:00Z"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "desktop": {
+    "os": "macOS",
+    "osVersion": "14.5",
+    "architecture": "arm64",
+    "appVersion": "1.0.0",
+    "appBuild": "42",
+    "language": "de",
+    "timezone": "Europe/Berlin",
+    "screenResolution": "2560x1440",
+    "screenScale": 2.0
+  },
+  "mobile": {
+    "device": "iPhone 15 Pro",
+    "os": "iOS",
+    "osVersion": "17.4",
+    "appVersion": "1.0.0",
+    "appBuild": "42",
+    "language": "de",
+    "screenSize": "393x852"
+  },
+  "web": {
+    "browser": "Chrome",
+    "browserVersion": "124.0",
+    "url": "https://app.example.com/dashboard",
+    "screenWidth": 1920,
+    "screenHeight": 1080,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "language": "de",
+    "timezone": "Europe/Berlin",
+    "referrer": ""
+  }
+}

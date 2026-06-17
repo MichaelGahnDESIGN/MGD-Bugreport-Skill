@@ -1,175 +1,241 @@
-# Beispiel: Swift macOS (Direktdownload)
+# Swift / SwiftUI macOS – Feedback Hub Integration
 
-Für macOS-Apps die über Direktdownload (nicht App Store) verteilt werden und in Swift geschrieben sind.
+Vollständige Integration eines Feedback-Hubs für macOS mit SwiftUI, Screenshot via CoreGraphics und async/await Netzwerkkommunikation.
 
----
-
-## Voraussetzungen
-
-- Apple Developer Account
-- Developer ID Application Zertifikat
-- Code-Signierung und Notarisierung eingerichtet
-
----
-
-## Projektstruktur
-
-```text
-YourApp/
-  Services/
-    UpdateService.swift       — Update-Prüfung
-    UpdateManifest.swift      — Manifest-Modell
-  Views/
-    UpdateAlertView.swift     — SwiftUI Update-Dialog
-```
-
----
-
-## UpdateManifest.swift
+## FeedbackReport Datenstruktur
 
 ```swift
+// FeedbackReport.swift
 import Foundation
 
-struct UpdateManifest: Codable {
-    let app: String
-    let platform: String
-    let latestVersion: String
-    let minimumVersion: String
-    let downloadUrl: String
-    let changelog: [String]
-    let forceUpdate: Bool
-    let sha256: String?
-    let publishedAt: String?
+enum FeedbackType: String, Codable, CaseIterable {
+    case bug, idea, feedback
+}
+
+struct FeedbackReport: Codable {
+    let type: FeedbackType
+    let title: String
+    let description: String
+    let severity: String        // low | medium | high | critical
+    let screenshotBase64: String?
+    let systemInfo: SystemInfo
+    let createdAt: Date
+
+    struct SystemInfo: Codable {
+        let osVersion: String
+        let appVersion: String
+        let appBuild: String
+        let hostname: String
+        let processorCount: Int
+    }
 }
 ```
 
----
-
-## UpdateService.swift
+## SystemInfoCollector
 
 ```swift
+// SystemInfoCollector.swift
+import Foundation
+import AppKit
+
+struct SystemInfoCollector {
+    static func collect() -> FeedbackReport.SystemInfo {
+        let info = Bundle.main.infoDictionary
+        return FeedbackReport.SystemInfo(
+            osVersion: ProcessInfo.processInfo.operatingSystemVersionString,
+            appVersion: info?["CFBundleShortVersionString"] as? String ?? "unbekannt",
+            appBuild: info?["CFBundleVersion"] as? String ?? "0",
+            hostname: ProcessInfo.processInfo.hostName,
+            processorCount: ProcessInfo.processInfo.processorCount
+        )
+    }
+}
+```
+
+## Screenshot (macOS: CGWindowListCreateImage)
+
+```swift
+// ScreenshotHelper.swift
+import AppKit
+import CoreGraphics
+
+struct ScreenshotHelper {
+    // Nimmt einen Screenshot aller Fenster auf – nur auf macOS verfügbar
+    static func capture() -> String? {
+        guard let screen = NSScreen.main else { return nil }
+        let bounds = screen.frame
+        guard let image = CGWindowListCreateImage(
+            bounds,
+            .optionOnScreenOnly,
+            kCGNullWindowID,
+            [.bestResolution]
+        ) else { return nil }
+
+        let nsImage = NSImage(cgImage: image, size: bounds.size)
+        guard let tiffData = nsImage.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiffData),
+              let pngData = bitmap.representation(using: .png, properties: [:])
+        else { return nil }
+
+        return pngData.base64EncodedString()
+    }
+}
+```
+
+## FeedbackService
+
+```swift
+// FeedbackService.swift
 import Foundation
 
-@MainActor
-final class UpdateService: ObservableObject {
-    static let shared = UpdateService()
+actor FeedbackService {
+    private let baseURL = URL(string: "https://feedback.example.com/api")!
 
-    @Published var availableUpdate: UpdateManifest?
-
-    private let manifestURL = URL(string: "https://updates.example.com/example-app/macos/latest.json")!
-    private var currentVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+    func submitBug(title: String, description: String,
+                   severity: String = "medium") async -> Bool {
+        let report = buildReport(type: .bug, title: title,
+                                 description: description, severity: severity,
+                                 screenshot: ScreenshotHelper.capture())
+        return await send(report)
     }
 
-    func checkForUpdate() async {
-        guard let manifest = await fetchManifest() else { return }
-        if shouldUpdate(manifest: manifest) {
-            availableUpdate = manifest
-        }
+    func submitIdea(title: String, description: String) async -> Bool {
+        let report = buildReport(type: .idea, title: title,
+                                 description: description)
+        return await send(report)
     }
 
-    func openDownloadPage() {
-        guard let urlString = availableUpdate?.downloadUrl,
-              let url = URL(string: urlString) else { return }
-        NSWorkspace.shared.open(url)
+    func submitFeedback(title: String, description: String) async -> Bool {
+        let report = buildReport(type: .feedback, title: title,
+                                 description: description)
+        return await send(report)
     }
 
-    private func fetchManifest() async -> UpdateManifest? {
+    private func buildReport(type: FeedbackType, title: String,
+                              description: String, severity: String = "medium",
+                              screenshot: String? = nil) -> FeedbackReport {
+        FeedbackReport(type: type, title: title, description: description,
+                       severity: severity, screenshotBase64: screenshot,
+                       systemInfo: SystemInfoCollector.collect(),
+                       createdAt: Date())
+    }
+
+    private func send(_ report: FeedbackReport) async -> Bool {
+        var request = URLRequest(url: baseURL.appendingPathComponent("report"))
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        guard let body = try? encoder.encode(report) else { return false }
+        request.httpBody = body
         do {
-            let (data, response) = try await URLSession.shared.data(from: manifestURL)
-            guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { return nil }
-            return try JSONDecoder().decode(UpdateManifest.self, from: data)
+            let (_, response) = try await URLSession.shared.data(for: request)
+            return (response as? HTTPURLResponse)?.statusCode == 201
         } catch {
-            return nil
+            return false
         }
-    }
-
-    private func shouldUpdate(manifest: UpdateManifest) -> Bool {
-        let latest = manifest.latestVersion
-        let minimum = manifest.minimumVersion
-        return compareVersions(latest, currentVersion) > 0 ||
-               compareVersions(currentVersion, minimum) < 0
-    }
-
-    private func compareVersions(_ a: String, _ b: String) -> Int {
-        a.compare(b, options: .numeric).rawValue
     }
 }
 ```
 
----
-
-## UpdateAlertView.swift (SwiftUI)
+## SwiftUI FeedbackButton (immer sichtbar)
 
 ```swift
+// FeedbackButton.swift
 import SwiftUI
 
-struct UpdateAlertView: View {
-    let manifest: UpdateManifest
-    let onDownload: () -> Void
-    let onDismiss: () -> Void
+struct FeedbackButton: View {
+    @State private var showModal = false
+    private let service = FeedbackService()
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Update verfügbar — Version \(manifest.latestVersion)")
-                .font(.headline)
+        Button {
+            showModal = true
+        } label: {
+            Label("Feedback", systemImage: "bubble.left.and.bubble.right")
+        }
+        .keyboardShortcut("f", modifiers: [.command, .shift])
+        .sheet(isPresented: $showModal) {
+            FeedbackHubView(service: service)
+        }
+    }
+}
+```
 
-            Text("Installiert: \(installedVersion)")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+## FeedbackHubView
 
-            Divider()
+```swift
+// FeedbackHubView.swift
+import SwiftUI
 
-            Text("Änderungen:")
-                .font(.subheadline).bold()
+struct FeedbackHubView: View {
+    let service: FeedbackService
+    @State private var type = FeedbackType.bug
+    @State private var title = ""
+    @State private var description = ""
+    @State private var severity = "medium"
+    @State private var sending = false
+    @State private var resultMessage: String?
+    @Environment(\.dismiss) private var dismiss
 
-            ForEach(manifest.changelog, id: \.self) { entry in
-                Label(entry, systemImage: "checkmark.circle")
-                    .font(.caption)
+    var body: some View {
+        Form {
+            Section("Art des Feedbacks") {
+                Picker("Typ", selection: $type) {
+                    ForEach(FeedbackType.allCases, id: \.self) { t in
+                        Text(t.rawValue.capitalized).tag(t)
+                    }
+                }.pickerStyle(.segmented)
             }
-
-            HStack {
-                if !manifest.forceUpdate {
-                    Button("Später", action: onDismiss)
+            Section("Details") {
+                TextField("Titel", text: $title)
+                TextEditor(text: $description)
+                    .frame(minHeight: 80)
+                if type == .bug {
+                    Picker("Schweregrad", selection: $severity) {
+                        ForEach(["low","medium","high","critical"], id: \.self) {
+                            Text($0.capitalized).tag($0)
+                        }
+                    }
                 }
-                Spacer()
-                Button("Jetzt herunterladen", action: onDownload)
-                    .buttonStyle(.borderedProminent)
+            }
+            if let msg = resultMessage {
+                Text(msg).foregroundColor(msg.contains("Fehler") ? .red : .green)
             }
         }
         .padding()
-        .frame(width: 380)
-    }
-
-    private var installedVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
-    }
-}
-```
-
----
-
-## App-Start Integration
-
-```swift
-@main
-struct ExampleApp: App {
-    @StateObject private var updater = UpdateService.shared
-
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .task { await updater.checkForUpdate() }
-                .sheet(item: $updater.availableUpdate) { manifest in
-                    UpdateAlertView(
-                        manifest: manifest,
-                        onDownload: { updater.openDownloadPage() },
-                        onDismiss: { updater.availableUpdate = nil }
-                    )
-                }
+        .frame(width: 480, height: 360)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Abbrechen") { dismiss() }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Senden") { Task { await send() } }
+                    .disabled(title.isEmpty || sending)
+            }
         }
     }
+
+    private func send() async {
+        sending = true
+        var ok = false
+        switch type {
+        case .bug: ok = await service.submitBug(title: title, description: description, severity: severity)
+        case .idea: ok = await service.submitIdea(title: title, description: description)
+        case .feedback: ok = await service.submitFeedback(title: title, description: description)
+        }
+        resultMessage = ok ? "Erfolgreich gesendet!" : "Fehler – bitte erneut versuchen."
+        sending = false
+        if ok { try? await Task.sleep(nanoseconds: 1_500_000_000); dismiss() }
+    }
 }
 ```
 
-→ Checkliste: [`../checklists/macos.md`](../checklists/macos.md)
+## Info.plist / Entitlements
+
+Für den Netzwerkzugriff muss in `<AppName>.entitlements` gesetzt sein:
+
+```xml
+<key>com.apple.security.network.client</key>
+<true/>
+```

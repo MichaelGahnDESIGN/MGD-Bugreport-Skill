@@ -21,6 +21,6 @@ Michael Gahn
 
 ## Hinweis
 
-Dieses Repository stellt eine frei nutzbare Dokumentations-, Planungs- und Skill-Struktur für Update-Systeme bereit. Es handelt sich nicht um Rechtsberatung, Steuerberatung oder verbindliche Sicherheitszertifizierung.
+Dieses Repository stellt eine frei nutzbare Dokumentations-, Planungs- und Skill-Struktur für Feedback- und Bug-Report-Systeme bereit. Es handelt sich nicht um Rechtsberatung, Datenschutzberatung oder verbindliche DSGVO-Zertifizierung.
 
-Bei produktiven Update-Systemen, kommerzieller Software, personenbezogenen Daten, Zahlungsfunktionen oder sicherheitskritischen Anwendungen sollten zusätzlich fachkundige Beratung, Sicherheitsprüfungen und plattformspezifische Anforderungen berücksichtigt werden.
+Bei produktiven Feedback-Systemen, kommerzieller Software, personenbezogenen Daten oder sicherheitskritischen Anwendungen sollten zusätzlich fachkundige Beratung, Datenschutzprüfungen und plattformspezifische Anforderungen berücksichtigt werden.

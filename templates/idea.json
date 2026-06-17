@@ -1,0 +1,16 @@
+{
+  "type": "idea",
+  "title": "...",
+  "description": "...",
+  "category": "feature",
+  "_category_options": ["feature", "ui", "performance", "other"],
+  "priority": "medium",
+  "_priority_options": ["low", "medium", "high"],
+  "screenshot": null,
+  "contact": "",
+  "metadata": {
+    "source": "feedback-hub",
+    "hubVersion": "1.0.0",
+    "submittedAt": "2026-06-17T10:00:00Z"
+  }
+}

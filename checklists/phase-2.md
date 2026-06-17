@@ -1,39 +1,33 @@
-# Phase-2-Checkliste — Geführter Download
+## Checkliste Phase 2 — Erweitertes System
 
-Alle Punkte aus Phase-1-Checkliste müssen erfüllt sein.
+Aufbauend auf Phase 1:
 
-## Zusätzliche Manifest-Felder
+- [ ] Floating Button implementiert
+- [ ] Hub-Menü öffnet sich korrekt
+- [ ] Formular für Fehler-Melden implementiert
+- [ ] Pflichtfelder validiert (Titel, Beschreibung)
+- [ ] Schweregrad wählbar
+- [ ] Daten werden per HTTPS gesendet
+- [ ] Erfolgs- und Fehlermeldung angezeigt
+- [ ] Datenschutzhinweis verlinkt
+- [ ] Button deaktivierbar via Einstellung
+- [ ] Netzwerkfehler wird silent behandelt (App stürzt nicht ab)
+- [ ] Opt-out für technische Daten implementiert
+- [ ] Gesendet in lokalem Log (für Debugging)
 
-- [ ] `sha256` ist im Manifest für jede Plattform vorhanden
-- [ ] `fileSize` ist im Manifest angegeben
-- [ ] SHA-256 wurde nach dem Build berechnet und verifiziert
+Zusätzlich in Phase 2:
 
-## Download-Implementierung
-
-- [ ] Download läuft im Hintergrund (kein UI-Freeze)
-- [ ] Fortschrittsbalken zeigt aktuellen Stand
-- [ ] Abbrechen des Downloads ist möglich
-- [ ] Unterbrochene Downloads können erneut gestartet werden
-- [ ] Download-Ziel ist ein sicheres temporäres Verzeichnis
-- [ ] Abgebrochene Downloads hinterlassen keine unvollständigen Dateien
-
-## Verifizierung
-
-- [ ] SHA-256 der heruntergeladenen Datei wird lokal berechnet
-- [ ] SHA-256 wird mit dem Manifest verglichen
-- [ ] Bei Abweichung: Datei löschen, Fehlermeldung anzeigen
-- [ ] Nutzer kann bei Verifizierungsfehler erneut versuchen
-
-## Nutzer-Feedback
-
-- [ ] Dateiname und Dateigröße werden vor dem Download angezeigt
-- [ ] Fortschritt in Prozent und verbleibende Zeit sichtbar
-- [ ] Nach Download: klare Handlungsaufforderung
-- [ ] Netzwerkfehler: verständliche Fehlermeldung mit Retry-Option
-- [ ] Zu wenig Speicher: frühzeitig prüfen und erklären
-
-## Sicherheit
-
-- [ ] Kein Schreiben in schreibgeschützte Systemverzeichnisse
-- [ ] Keine Admin-Rechte für den Download selbst
-- [ ] Download-URL kommt aus dem verifizierten Manifest (nicht aus Nutzer-Input)
+- [ ] Screenshot-Funktion implementiert (plattformspezifisch)
+- [ ] Screenshot-Vorschau vor dem Senden
+- [ ] Opt-out für Screenshot
+- [ ] Technische Daten automatisch erfasst
+- [ ] Anhänge möglich (max. Dateigröße begrenzt)
+- [ ] Backend-API implementiert
+- [ ] Datenbankmodell für Reports
+- [ ] Admin-Bereich erreichbar
+- [ ] Status-Tracking (Neu / In Bearbeitung / Behoben)
+- [ ] Ideen-Formular implementiert
+- [ ] Feedback-Formular implementiert
+- [ ] Rate-Limiting auf Backend
+- [ ] Eingaben werden serverseitig validiert
+- [ ] Datei-Uploads sicher (MIME-Check, Größe)

@@ -1,63 +1,62 @@
-# 01. Einführung
+## Einführung: MGD Bugreport Skill
 
-Der MGD App Updater Skill ist ein praktischer Leitfaden für die Planung von Software-Update-Systemen mit KI-Agenten.
+Der MGD Bugreport Skill ist eine Planungsstruktur für KI-Agenten und Entwickler, die professionelle Bug-Report-, Feedback- und QA-Systeme in ihre Anwendungen integrieren möchten. Er ist kein Framework, keine Bibliothek und kein fertiges Produkt — er ist eine strukturierte Anleitung, die KI-Agenten wie Claude Code, Codex oder Cursor befähigt, die richtige Implementierung für einen konkreten Anwendungsfall zu planen und umzusetzen.
 
-Er ist keine fertige Bibliothek und kein Framework. Er ist ein Planungs-Skill, der einem Agenten hilft, **zuerst die richtige Update-Strategie zu wählen** — bevor Code geschrieben wird.
+### Was ist der MGD Bugreport Skill?
 
----
+Der Skill definiert, **wie** ein Feedback-System aufgebaut sein soll, **welche Daten** erfasst werden dürfen, und **welche Entscheidungen** vor der Implementierung getroffen werden müssen. Er beantwortet Fragen wie:
 
-## Die Grundidee
+- Welche Feedback-Typen soll die Anwendung unterstützen?
+- Wie werden Screenshots datenschutzkonform verarbeitet?
+- Welche technischen Daten dürfen automatisch erfasst werden?
+- Wie sieht der Datenfluss vom Nutzer bis zum Entwickler-Dashboard aus?
 
-```text
-Installierte App
-↓
-Update-Manifest prüfen
-↓
-Update-Dialog zeigen
-↓
-Download oder Installation
-```
+Der Skill gibt keine Antworten vor — er stellt sicher, dass die richtigen Fragen gestellt werden, bevor Code geschrieben wird.
 
-Ein nützliches erstes Update-System kann sehr einfach sein: Die App prüft eine JSON-Datei, vergleicht Versionen und zeigt einen Download-Link.
+### Warum ist Planung wichtig?
 
----
+Feedback-Systeme berühren sensible Bereiche:
 
-## Warum Planung wichtig ist
+**Datenschutz:** Screenshots können persönliche Daten enthalten. Systemdaten können zur Profilbildung genutzt werden. In Europa gilt die DSGVO (Datenschutz-Grundverordnung), die eine informierte Einwilligung verlangt.
 
-Update-Systeme können Software auf dem Computer eines Nutzers ersetzen. Das macht sie sicherheitskritisch.
+**Screenshot-Sensibilität:** Ein Screenshot, der automatisch beim Klick auf "Fehler melden" aufgenommen wird, kann Passwörter, private Nachrichten oder sensible Geschäftsdaten enthalten. Ohne Vorschau und Opt-out ist das ein Datenschutzproblem.
 
-Ein schlecht implementierter Updater kann:
-- zu einem Angriffspunkt für Dritte werden
-- Nutzerdaten beschädigen
-- Installationen in einem unbenutzbaren Zustand hinterlassen
-- durch fehlerhafte Signierungsprüfung kompromittiert werden
+**Nutzererfahrung:** Ein zu komplexes Formular wird nicht ausgefüllt. Ein zu einfaches liefert keine verwertbaren Informationen. Die Balance ist entscheidend.
 
-Dieser Skill sorgt dafür, dass die erste Implementierung einfach und sicher ist — und bereitet spätere Sicherheitsmaßnahmen wie Checksummen, Signaturen, erzwungene Updates und Rollback schrittweise vor.
+**Plattformunterschiede:** Screenshot-APIs, Systemdaten und Dateizugriff funktionieren auf macOS, Windows, Linux, iOS, Android und im Web grundlegend unterschiedlich.
 
----
+### Struktur des Skills
 
-## Wie dieser Skill aufgebaut ist
+| Verzeichnis | Inhalt |
+|---|---|
+| `skill/` | Die eigentliche Skill-Datei für KI-Agenten (YAML/Markdown) |
+| `wiki/` | Diese Dokumentation — vollständige Erklärung aller Konzepte |
+| `examples/` | Beispiel-Implementierungen für verschiedene Plattformen und Frameworks |
+| `checklists/` | Abhaklisten für Entwickler vor dem Launch |
+| `templates/` | Wiederverwendbare Formulare, JSON-Schemata und UI-Komponenten |
 
-| Bereich | Inhalt |
-|---------|--------|
-| `skill/SKILL.md` | Kern-Anweisungen für KI-Agenten |
-| `wiki/` | Vollständiges Handbuch (diese Dateien) |
-| `examples/` | Konkrete Beispiele pro Plattform |
-| `checklists/` | Fertige Checklisten zum Abhaken |
-| `templates/` | JSON-Templates und Release-Prozesse |
+### Für wen ist dieser Skill?
 
----
+**KI-Agenten:**
+- Claude Code (Anthropic)
+- Codex / ChatGPT (OpenAI)
+- Cursor
+- Windsurf
+- Gemini CLI (Google)
 
-## Für wen ist dieser Skill?
+Der Skill wurde so formuliert, dass er von KI-Agenten direkt als Planungsgrundlage genutzt werden kann. Ein Agent, der diesen Skill geladen hat, kann einen Entwickler durch den gesamten Implementierungsprozess führen — von der Konzeptentscheidung bis zum ersten funktionierenden Formular.
 
-**Entwickler** die ein Update-System einbauen wollen, aber nicht wissen wo sie anfangen sollen.
+**Entwickler:**
+- Indie-Entwickler, die ein einfaches Feedback-Widget für ihre App benötigen
+- Open-Source-Maintainer, die Bug-Reports strukturieren möchten
+- Teams, die ein internes QA-System aufbauen
+- Agenturen, die für Kunden ein Feedback-System konzipieren
 
-**KI-Agenten** (Claude Code, ChatGPT Codex, Cursor, Windsurf, Gemini CLI) die ein Projekt analysieren und eine Update-Roadmap erstellen sollen.
+### Prinzipien des Skills
 
-**Indie-Entwickler** die ohne Update-Erfahrung ein professionelles Ergebnis erreichen wollen.
+1. **Privacy by Default** — Kein Screenshot ohne Vorschau, keine Systemdaten ohne Opt-out
+2. **Modularität** — Jeder Feedback-Typ ist unabhängig aktivierbar
+3. **Plattformneutralität** — Die Konzepte gelten für Web, Desktop und Mobile
+4. **KI-Kompatibilität** — Alle Entscheidungen sind als Fragen formuliert, die ein Agent stellen kann
 
----
-
-## Nächster Schritt
-
-→ Weiter mit [`02-Grundlagen.md`](02-Grundlagen.md)
+→ Weiter mit [wiki/02-Feedback-Hub.md](02-Feedback-Hub.md)

@@ -1,30 +1,48 @@
-# MGD App Updater Skill
+# MGD Bugreport Skill
 
-**Das deutschsprachige Open-Source-Handbuch für sichere Software-Update-Systeme.**
+**Das deutschsprachige Open-Source-Handbuch für professionelle Feedback- und Bug-Report-Systeme.**
 
-Ein universeller Skill für KI-Agenten und Entwickler — technologie-neutral, sicherheitsorientiert, schrittweise.
+Ein universeller Skill für KI-Agenten und Entwickler — technologie-neutral, datenschutzorientiert, schrittweise.
 
 ---
 
-## Was ist MGD App Updater Skill?
+## Was ist MGD Bugreport Skill?
 
-Dieser Skill ist eine **Planungs- und Dokumentationsstruktur** für Software-Update-Systeme. Kein fertiges Framework. Kein Boilerplate-Code. Stattdessen: ein strukturiertes Vorgehen das KI-Agenten zwingt, **zuerst zu denken und dann zu implementieren**.
+Dieser Skill ist eine **Planungs- und Dokumentationsstruktur** für Feedback-Systeme in Software-Projekten. Kein fertiges Widget. Kein Boilerplate-Code. Stattdessen: ein strukturiertes Vorgehen das KI-Agenten zwingt, **zuerst zu planen und dann zu implementieren**.
 
-Update-Systeme ersetzen Software auf dem Rechner des Nutzers. Das macht sie sicherheitskritisch. Ein schlecht implementierter Updater kann zur Remote-Code-Execution-Schwachstelle werden. Dieser Skill verhindert das durch strukturiertes Vorgehen.
+Ein Feedback-Hub erfasst Nutzerdaten, Screenshots und technische Geräteinformationen. Das macht ihn datenschutzrelevant. Dieser Skill verhindert falsche Implementierungen durch strukturiertes Vorgehen.
+
+---
+
+## Feedback-Hub-Konzept
+
+Der Standardbutton öffnet ein Menü:
+
+| Symbol | Funktion |
+|--------|----------|
+| 🐞 | Fehler melden |
+| 💡 | Idee einreichen |
+| 📢 | Feedback geben |
+| ❓ | Hilfe anfordern |
+
+Der Entwickler entscheidet welche Einträge aktiv sind und welche nicht.
 
 ---
 
 ## Warum existiert dieses Projekt?
 
-KI-Agenten neigen dazu, sofort Code zu schreiben wenn sie "Bau mir einen Updater" hören. Das ist gefährlich.
+KI-Agenten neigen dazu, sofort einen Bug-Button zu schreiben wenn sie "Bau mir einen Feedback-Button" hören. Das ist problematisch weil:
+
+- Screenshots können sensible Daten enthalten
+- Technische Gerätedaten sind personenbezogen
+- DSGVO-Anforderungen werden oft übersehen
+- Datenspeicherung ohne Konzept erzeugt Compliance-Probleme
 
 Dieser Skill erzwingt folgendes Vorgehen:
 
 ```
-Analyse → Architektur → Risiken → Roadmap → Checkliste → Fragen → Erst dann: Code
+Technologie → UX → Datenschutz → Screenshot-Strategie → Datenmodell → Backend → Erst dann: Code
 ```
-
-Außerdem fehlte bislang ein **hochwertiges deutschsprachiges Referenzwerk** zum Thema Software-Update-Systeme das alle gängigen Technologien und Plattformen abdeckt.
 
 ---
 
@@ -39,23 +57,24 @@ Außerdem fehlte bislang ein **hochwertiges deutschsprachiges Referenzwerk** zum
 - Andere Coding-Agenten
 
 **Entwickler:**
-- Indie-Entwickler die ein erstes Update-System einbauen wollen
-- Open-Source-Maintainer die professionelle Releases anbieten wollen
-- Teams die Update-Systeme sicher skalieren wollen
+- Indie-Entwickler die ein erstes Feedback-System einbauen wollen
+- Open-Source-Maintainer die Nutzerfeedback professionell erfassen wollen
+- Teams die QA-Workflows in ihre Apps integrieren wollen
 
 ---
 
 ## Was enthält v1.0?
 
 - Professionelles README auf Deutsch
-- Vollständiges Wiki mit 17 Kapiteln
-- Mermaid-Diagramme in Wiki und README
-- Echte Referenzarchitekturen für 15 Plattformen und Technologien
+- Vollständiges Wiki mit 16 Kapiteln
+- Mermaid-Diagramme für alle Architekturen
+- Echte Referenzarchitekturen für 13 Plattformen
 - Release 1.0.0 auf GitHub
 - GitHub Topics für maximale Auffindbarkeit
 
 **Geplant für v1.x:**
-- Referenzimplementierung für Flutter, Swift, PHP und API-Clients
+- Fertige Widget-Implementierungen für Flutter, Swift, React und Vue
+- Admin-Panel-Vorlage
 
 ---
 
@@ -71,76 +90,56 @@ Außerdem fehlte bislang ein **hochwertiges deutschsprachiges Referenzwerk** zum
 | Swift / SwiftUI | macOS |
 | C# WPF / WinUI | Windows |
 | Qt | macOS, Windows, Linux |
-| Native (C++, Go, Rust) | macOS, Windows, Linux |
 
 ### Mobile
 
 | Technologie | Plattformen |
 |------------|-------------|
 | Flutter Mobile | iOS, Android |
-| Swift / SwiftUI | iOS, macOS |
+| Swift / SwiftUI | iOS |
 | Kotlin / Java | Android |
 | React Native | iOS, Android |
+
+### Web
+
+| Technologie | Einsatzgebiet |
+|------------|---------------|
+| React | SPAs, Next.js |
+| Vue | SPAs, Nuxt.js |
+| Angular | Enterprise-Webanwendungen |
+| Vanilla JS | Einfache Web-Apps |
 
 ### Spiele
 
 | Engine | Besonderheiten |
 |--------|---------------|
-| Unity | AssetBundles, Addressables, eigener Launcher |
-| Godot | PCK-Content-Updates, GDScript |
-| Unreal Engine | Pak-Dateien, eigener Updater |
-| Flutter Flame | Wie Flutter Mobile/Desktop |
+| Unity | Screenshot via RenderTexture |
+| Godot | Screenshot via Viewport |
+| Unreal Engine | Screenshot via ConsoleCommand |
 
-### Backend-Technologien
+### Backend
 
 | Technologie | Einsatzgebiet |
 |------------|---------------|
-| PHP / Flight PHP | Einfache Update-APIs |
-| Laravel | Update-APIs mit Lizenzprüfung |
-| Symfony | Enterprise Update-APIs |
+| PHP | Einfache Feedback-APIs |
+| Laravel | Feedback-APIs mit Admin-Panel |
+| Symfony | Enterprise-Feedback-APIs |
 | Node.js / Express | Leichtgewichtige APIs |
 | NestJS | Typsichere APIs |
 | ASP.NET | .NET-Ökosystem |
 | Go | Hochperformante APIs |
 | Python FastAPI | Schnelle Prototypen |
 
-### Deployment
-
-| Option | Geeignet für |
-|--------|-------------|
-| GitHub Releases | Open-Source, öffentliche Tools |
-| Self-Hosted | Maximale Kontrolle |
-| CDN | Große Nutzerzahlen |
-| S3-kompatibler Speicher | Skalierbar, günstig |
-| Docker / Kubernetes | Containerisierte APIs |
-
 ---
 
-## Philosophie
-
-> Planen vor Implementieren.
-> Sicherheit vor Komfort.
-> Einfach starten, sicher wachsen.
-
-Der Skill ist **technologie-neutral**. Er setzt keine bestimmte Sprache, kein Framework, keinen Hosting-Anbieter voraus. Stattdessen erkennt er zuerst:
-
-- Plattform und Technologie
-- Verteilungsmodell
-- Sicherheitsanforderungen
-- Zielgruppe
-
-Und empfiehlt dann die passende Architektur.
-
----
-
-## Update-Reifegrade
+## Reifegrade
 
 ```mermaid
 flowchart LR
-    S1["Stufe 1\nManueller Hinweis\nJSON prüfen,\nLink öffnen"] --> S2["Stufe 2\nGeführter Download\nInstaller herunterladen,\nChecksumme prüfen"]
-    S2 --> S3["Stufe 3\nAuto-Updater\nSelbst installieren\nmit Signierung"]
-    S3 --> S4["Stufe 4\nSicheres Release-System\nRollback, Kanäle,\nForce-Update"]
-    S4 --> S5["Stufe 5\nKommerziell\nLizenz, Staged Rollout,\nEnterprise"]
+    S1["Stufe 1\nBasis-Feedback\nFormular + E-Mail"] --> S2["Stufe 2\nErweitertes System\nScreenshot + API + Admin"]
+    S2 --> S3["Stufe 3\nVollständiges System\nGitHub-Sync + KI"]
+    S3 --> S4["Stufe 4\nMulti-Channel\nSlack, JIRA, Linear"]
+    S4 --> S5["Stufe 5\nEnterprise\nSSO, Audit, SaaS"]
 ```
 
 **Die meisten Projekte starten bei Stufe 1.**
@@ -148,8 +147,8 @@ flowchart LR
 | Stufe | Wann wechseln |
 |-------|--------------|
 | 1 → 2 | Wenn Phase 1 stabil läuft |
-| 2 → 3 | Erst mit Code-Signierung |
-| 3 → 4 | Wenn Rollback nötig wird |
+| 2 → 3 | Mit eigenem Backend und Admin-Bereich |
+| 3 → 4 | Bei aktivem Team mit externen Tools |
 | 4 → 5 | Bei kommerziellem Modell |
 
 ---
@@ -165,40 +164,45 @@ skill/SKILL.md
 ### Schritt 2 — Agenten-Prompt
 
 ```text
-Verwende den MGD App Updater Skill.
+Verwende den MGD Bugreport Skill.
 Analysiere mein Projekt und erstelle eine Phase-1-Roadmap.
 Schreibe noch keinen Code.
-Erkläre zuerst Architektur, Risiken, Checkliste und offene Fragen.
+Erkläre zuerst Hub-Konfiguration, Screenshot-Strategie, Datenschutz, Architektur und offene Fragen.
 ```
 
-### Schritt 3 — Minimalstruktur (Phase 1)
+### Schritt 3 — Phase-1-Architektur
 
 ```mermaid
 flowchart TD
-    A[App startet] --> B[Version prüfen]
-    B --> C[latest.json laden]
-    C --> D{Neu?}
-    D -- Ja --> E[Update-Dialog]
-    D -- Nein --> F[Normal starten]
-    E --> G[Download-Link öffnen]
-    C -- Fehler --> F
+    A[Nutzer klickt Floating Button] --> B[Hub-Menü öffnet sich]
+    B --> C{Auswahl}
+    C --> D[🐞 Fehler melden]
+    C --> E[💡 Idee einreichen]
+    C --> F[📢 Feedback geben]
+    C --> G[❓ Hilfe anfordern]
+    D --> H[Formular ausfüllen]
+    E --> H
+    F --> H
+    G --> H
+    H --> I[Absenden]
+    I --> J[E-Mail oder API]
 ```
 
-### Schritt 4 — Minimales Manifest
+### Schritt 4 — Minimales Datenmodell
 
 ```json
 {
-  "app": "example-app",
-  "platform": "macos",
-  "latestVersion": "1.0.1",
-  "minimumVersion": "1.0.0",
-  "downloadUrl": "https://updates.example.com/example-app/releases/example-app-1.0.1-macos.dmg",
-  "changelog": [
-    "Update-Prüfung hinzugefügt",
-    "Startproblem behoben"
-  ],
-  "forceUpdate": false,
-  "publishedAt": "2026-06-17"
+  "type": "bug",
+  "title": "Login schlägt fehl",
+  "description": "Beim Klick auf Login passiert nichts",
+  "severity": "high",
+  "screenshot": null,
+  "systemInfo": {
+    "os": "macOS 14.5",
+    "appVersion": "1.0.0",
+    "language": "de"
+  },
+  "submittedAt": "2026-06-17T10:00:00Z"
 }
 ```
 
@@ -207,38 +211,40 @@ flowchart TD
 ## Skill-Kommandos
 
 ```text
-/updateservice analyse           — Technologie und Projekttyp erkennen
-/updateservice roadmap           — Phasen-Roadmap erstellen
-/updateservice architecture      — Architektur planen
-/updateservice phase1            — Phase 1 umsetzen
-/updateservice phase2            — Phase 2 umsetzen
-/updateservice phase3            — Phase 3 umsetzen
-/updateservice security          — Sicherheitsanalyse
+/bugreport analyse              — Technologie und Datenschutz analysieren
+/bugreport roadmap              — Phasen-Roadmap erstellen
+/bugreport architecture         — Architektur planen
+/bugreport phase1               — Phase 1 umsetzen
+/bugreport phase2               — Phase 2 umsetzen
+/bugreport phase3               — Phase 3 umsetzen
+/bugreport datenschutz          — Datenschutz-Analyse
+/bugreport checklist            — Passende Checkliste wählen
 
 Plattform:
-/updateservice flutter           — Flutter (Desktop oder Mobile)
-/updateservice swift             — Swift / SwiftUI
-/updateservice electron          — Electron
-/updateservice tauri             — Tauri
-/updateservice unity             — Unity
-/updateservice godot             — Godot
-/updateservice mobile            — Mobile allgemein
-/updateservice android           — Android
-/updateservice ios               — iOS
+/bugreport flutter              — Flutter (Desktop oder Mobile)
+/bugreport swift                — Swift / SwiftUI
+/bugreport electron             — Electron
+/bugreport tauri                — Tauri
+/bugreport unity                — Unity
+/bugreport godot                — Godot
+/bugreport android              — Android
+/bugreport ios                  — iOS
+/bugreport web                  — Web App
+/bugreport react                — React
+/bugreport vue                  — Vue
 
 Backend:
-/updateservice php               — PHP Update-API
-/updateservice laravel           — Laravel
-/updateservice nodejs            — Node.js
-/updateservice selfhosted        — Self-Hosted-Server
-/updateservice github            — GitHub-Releases
+/bugreport php                  — PHP Backend
+/bugreport laravel              — Laravel
+/bugreport nodejs               — Node.js
+/bugreport selfhosted           — Self-Hosted
 
 Spezial:
-/updateservice game              — Spiel-Client
-/updateservice api-client        — API-abhängige App
-/updateservice license           — Lizenzserver
-/updateservice content           — Content-Updates
-/updateservice checklist         — Passende Checkliste
+/bugreport screenshot           — Screenshot-Strategie
+/bugreport hub                  — Hub konfigurieren
+/bugreport admin                — Admin-Bereich planen
+/bugreport dsgvo                — DSGVO-Compliance
+/bugreport github-sync          — GitHub-Integration
 ```
 
 ---
@@ -255,13 +261,11 @@ Spezial:
 | Tauri | [`examples/tauri.md`](examples/tauri.md) |
 | Unity | [`examples/unity.md`](examples/unity.md) |
 | Godot | [`examples/godot.md`](examples/godot.md) |
-| PHP Update-API | [`examples/php-update-api.md`](examples/php-update-api.md) |
-| Laravel | [`examples/laravel-update-api.md`](examples/laravel-update-api.md) |
-| Symfony | [`examples/symfony-update-api.md`](examples/symfony-update-api.md) |
-| Node.js | [`examples/nodejs-update-api.md`](examples/nodejs-update-api.md) |
-| Spiel-Client | [`examples/game-client.md`](examples/game-client.md) |
-| Wetter-App | [`examples/weather-app.md`](examples/weather-app.md) |
-| API-Client | [`examples/api-client.md`](examples/api-client.md) |
+| PHP Backend | [`examples/php-backend.md`](examples/php-backend.md) |
+| Laravel Backend | [`examples/laravel-backend.md`](examples/laravel-backend.md) |
+| Node.js Backend | [`examples/nodejs-backend.md`](examples/nodejs-backend.md) |
+| React Web | [`examples/react-web.md`](examples/react-web.md) |
+| Vue Web | [`examples/vue-web.md`](examples/vue-web.md) |
 
 ---
 
@@ -279,49 +283,46 @@ skill/
 
 wiki/
   01-Einfuehrung.md
-  02-Grundlagen.md
-  03-Architektur.md
-  04-Phase-1-Manuelle-Updates.md
-  05-Phase-2-Gefuehrte-Downloads.md
-  06-Phase-3-Auto-Updater.md
-  07-Sicherheit.md
-  08-Plattformen.md
-  09-Swift-und-SwiftUI.md
-  10-PHP-Backends.md
-  11-API-Clients.md
-  12-Spiele-und-Content-Updates.md
-  13-GitHub-Releases.md
-  14-Self-Hosted-Updates.md
-  15-Lizenzserver.md
-  16-FAQ.md
-  17-Glossar.md
+  02-Feedback-Hub.md
+  03-Fehler-Melden.md
+  04-Ideen-Einreichen.md
+  05-Feedback-Geben.md
+  06-Hilfe-Anfordern.md
+  07-Screenshot-Funktion.md
+  08-Technische-Daten.md
+  09-Floating-Button.md
+  10-Einstellungen.md
+  11-Backend-und-Admin.md
+  12-GitHub-Integration.md
+  13-Datenschutz.md
+  14-Plattformen.md
+  15-FAQ.md
+  16-Glossar.md
 
-examples/                          — 15 Beispiele (flutter, swift, electron, unity, godot, php, laravel, nodejs, ...)
-checklists/                        — 8 Plattform- und Phasen-Checklisten
-templates/                         — JSON-Templates und Release-Prozess
+examples/                          — 13 Beispiele
+checklists/                        — 7 Checklisten
+templates/                         — JSON-Templates
 ```
 
 ---
 
-## Sicherheit
+## Datenschutz
 
-Update-Systeme ersetzen Software auf Nutzerrechnern. Die wichtigsten Regeln:
+Feedback-Systeme erfassen sensible Daten. Die wichtigsten Regeln:
 
 **Niemals:**
-- Private Tokens, API-Keys, Signing-Zertifikate in eine ausgelieferte App einbetten
-- Remote-Skripte ohne Verifikation ausführen
-- Binärdateien ohne Integritätsprüfung ersetzen
-- HTTP für Manifeste oder Downloads verwenden
+- Screenshots ohne Nutzereinwilligung auf Mobile-Plattformen
+- Personenbezogene Daten ohne Datenschutzhinweis erfassen
+- Systemdaten ohne Opt-out übertragen
+- Daten unverschlüsselt über HTTP senden
 
 **Immer:**
-- HTTPS für alle Update-Kommunikation
-- SHA-256 Checksummen für Downloads (Phase 2+)
-- Code-Signierung vor Auto-Installer (Phase 3)
-- Netzwerkfehler still behandeln — App darf nicht abstürzen
+- HTTPS für alle Datenübertragungen
+- Opt-out für technische Daten anbieten
+- Screenshot-Vorschau vor dem Senden zeigen
+- Datenschutzerklärung verlinken
 
-Alles was in eine App ausgeliefert wird, muss als extrahierbar betrachtet werden.
-
-→ Vollständig: [`wiki/07-Sicherheit.md`](wiki/07-Sicherheit.md)
+→ Vollständig: [`wiki/13-Datenschutz.md`](wiki/13-Datenschutz.md)
 
 ---
 
@@ -333,7 +334,16 @@ Dieses Repository ist öffentlich. Daher gilt:
 - Keine internen Server oder privaten URLs
 - Im Zweifel: nicht erwähnen
 
-Alle Beispiele verwenden generische Namen: `example-app`, `updates.example.com`, `api.example.com`.
+Alle Beispiele verwenden generische Namen: `example-app`, `feedback.example.com`, `api.example.com`.
+
+---
+
+## Verwandte MGD Skills
+
+| Skill | Beschreibung |
+|-------|-------------|
+| [MGD-App-Updater-Skill](https://github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill) | Professionelle Software-Update-Systeme |
+| [MGD-ToDo-SKILL](https://github.com/MichaelGahnDESIGN/MGD-ToDo-SKILL) | Aufgabenmanagement in Apps |
 
 ---
 
@@ -355,4 +365,4 @@ Siehe [`IMPRESSUM.md`](IMPRESSUM.md).
 
 ---
 
-*MGD App Updater Skill — von [Michael Gahn DESIGN](https://michael-gahn.de)*
+*MGD Bugreport Skill — von [Michael Gahn DESIGN](https://michael-gahn.de)*

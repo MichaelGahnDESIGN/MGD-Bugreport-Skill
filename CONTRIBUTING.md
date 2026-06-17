@@ -1,61 +1,62 @@
-# Beitrag leisten
+# Beitragen
 
-Danke, dass du einen Beitrag zum MGD App Updater Skill erwägst.
-
-Das Ziel dieses Projekts ist es, Menschen und KI-Agenten dabei zu helfen, Update-Systeme sicher und verständlich zu planen.
+Danke für dein Interesse an MGD Bugreport Skill.
 
 ---
 
-## Willkommene Beiträge
+## Wie du beitragen kannst
 
-- Klarere Erklärungen und bessere Formulierungen
-- Sicherere Beispiele
-- Verbesserte Checklisten
-- Neue Plattform-Beispiele
-- Korrekturen und Ergänzungen
-
----
-
-## Was vermieden werden soll
-
-- Keine Beispiele einreichen die private Tokens in Client-Apps einbetten
-- Keine Anleitungen zum Ausführen von Remote-Code ohne Verifikation
-- Keine privaten Projektnamen, private Repository-URLs, Kundendaten, NDA-Informationen oder interne Infrastrukturdetails
-
-Generische Beispiele verwenden: `example-app`, `updates.example.com`, `api.example.com`.
-
----
-
-## Öffentlichkeitsregel
-
-Dieses Repository ist öffentlich. Alles was hier eingereicht wird, ist öffentlich sichtbar.
-
-Daher gilt:
-- Niemals private Repositories erwähnen
-- Niemals Kundenprojekte erwähnen
-- Niemals interne Server oder private URLs erwähnen
-- Im Zweifel: nicht erwähnen
-
----
-
-## Checkliste für Pull Requests
-
-- [ ] Der Beitrag ist für Einsteiger verständlich
-- [ ] Sicherheitsaspekte sind erklärt
-- [ ] Keine Secrets enthalten
-- [ ] Keine privaten Projekt- oder Kundeninformationen enthalten
-- [ ] Die Lösung ist neutral, außer die Datei ist explizit framework-spezifisch
-- [ ] Deutsche Sprache (außer JSON, Code und technische Feldnamen)
+- Neue Technologie-Beispiele hinzufügen (z.B. Angular, NestJS, Unreal Engine)
+- Wiki-Kapitel verbessern oder erweitern
+- Checklisten ergänzen
+- Fehler und Unklarheiten melden
+- Übersetzungen
 
 ---
 
 ## Sprache
 
-Alle Dokumentationsdateien sind auf Deutsch.
+Alle Dokumentationen auf **Deutsch**.
 
 Ausnahmen:
-- JSON-Beispiele
-- Code-Beispiele
-- API-Felder und technische Feldnamen
+- Code-Beispiele (native Sprache der Technologie)
+- JSON-Templates (Feldnamen auf Englisch)
+- technische Bezeichner und API-Namen
 
-Diese bleiben Englisch.
+---
+
+## Öffentlichkeitsregel
+
+Dieses Repository ist öffentlich. Daher gilt:
+
+- Keine privaten Repositories, Kundenprojekte oder NDA-Inhalte erwähnen
+- Keine internen Server oder privaten URLs
+- Keine Firmennamen ohne deren Erlaubnis
+- Alle Beispiele verwenden: `example-app`, `feedback.example.com`, `api.example.com`
+- Im Zweifel: nicht erwähnen
+
+---
+
+## Agenten-Regeln
+
+Wenn du als KI-Agent beiträgst:
+
+1. Zuerst die bestehende Struktur lesen
+2. Technologie und Datenschutzanforderungen prüfen
+3. Keine realen Firmennamen oder privaten URLs einführen
+4. Deutschen Stil der vorhandenen Dateien übernehmen
+
+---
+
+## Pull Requests
+
+1. Fork erstellen
+2. Feature-Branch anlegen (`feature/angular-beispiel`)
+3. Änderungen committen
+4. Pull Request erstellen mit Beschreibung was und warum
+
+---
+
+## Lizenz
+
+Mit deinem Beitrag stimmst du zu dass er unter der MIT-Lizenz veröffentlicht wird.
