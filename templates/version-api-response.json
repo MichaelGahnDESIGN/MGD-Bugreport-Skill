@@ -1,0 +1,12 @@
+{
+  "app": "example-app",
+  "platform": "windows",
+  "channel": "stable",
+  "installedVersionSupported": true,
+  "latestVersion": "1.0.1",
+  "minimumVersion": "1.0.0",
+  "downloadUrl": "https://updates.example.com/example-app/releases/example-app-1.0.1-windows.exe",
+  "sha256": "PLACEHOLDER_SHA256_HASH",
+  "forceUpdate": false,
+  "message": "Update available"
+}

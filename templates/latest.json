@@ -1,0 +1,14 @@
+{
+  "app": "example-app",
+  "platform": "macos",
+  "latestVersion": "1.0.1",
+  "minimumVersion": "1.0.0",
+  "downloadUrl": "https://updates.example.com/example-app/releases/example-app-1.0.1-macos.dmg",
+  "changelog": [
+    "Added update check window",
+    "Improved settings screen",
+    "Fixed startup issue"
+  ],
+  "forceUpdate": false,
+  "publishedAt": "2026-06-17"
+}

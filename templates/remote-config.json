@@ -1,0 +1,16 @@
+{
+  "app": "example-app",
+  "environment": "production",
+  "apiCompatibilityVersion": "api-v1",
+  "minimumClientVersion": "1.0.0",
+  "maintenanceMode": false,
+  "maintenanceMessage": null,
+  "features": {
+    "exampleFeature": true,
+    "experimentalFeature": false
+  },
+  "limits": {
+    "maxItemsPerRequest": 100,
+    "requestTimeoutSeconds": 30
+  }
+}
