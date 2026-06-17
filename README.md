@@ -1,79 +1,120 @@
 # MGD App Updater Skill
 
-**MGD App Updater Skill** is a universal AI-agent skill for planning safe update systems for apps, programs, games and API-based clients.
+**Ein universeller Skill für KI-Agenten zur Planung sicherer Update-Systeme.**
 
-It is made for ChatGPT Codex, Claude Code, Cursor and other coding agents. The skill helps an agent analyse a project before writing code and then guides it through a clear update roadmap.
+Für Flutter, Electron, Tauri, native Desktop-Apps, Mobile Apps, Spiele, API-Clients, SaaS-Clients und Self-Hosted-Software.
 
-The project is intentionally neutral. It can be used for open-source and closed-source projects, Flutter, Electron, Tauri, native desktop apps, mobile apps, games, SaaS clients and self-hosted software.
+---
 
-## Why this skill exists
+## Was ist dieser Skill?
 
-Many apps eventually need updates. At first this sounds simple, but it quickly raises important questions.
+Der MGD App Updater Skill ist eine Planungs- und Dokumentationsstruktur für Software-Update-Systeme.
 
-How does the app know that a new version exists? Where are installers stored? What happens when an old version no longer works with an API? How are downloads verified? Should updates be optional or mandatory?
+Er ist keine fertige Bibliothek. Er ist ein Skill, der KI-Agenten zwingt, **zuerst zu planen und dann erst zu implementieren**.
 
-This skill helps answer those questions step by step.
+Update-Systeme ersetzen Software auf dem Computer des Nutzers. Das macht sie sicherheitskritisch. Ein schlecht geplanter Updater kann zur Angriffsfläche werden. Dieser Skill verhindert das durch strukturiertes Vorgehen.
 
-## Philosophy
+---
 
-Plan before implementation.
+## Für wen ist dieser Skill?
 
-Security before comfort.
+**Menschen:**
+- Entwickler die ein Update-System für ihre App einbauen wollen
+- Open-Source-Maintainer die professionelle Releases anbieten wollen
+- Indie-Entwickler ohne Update-Erfahrung
 
-Start simple, then grow safely.
+**KI-Agenten:**
+- ChatGPT Codex
+- Claude Code
+- Cursor
+- Windsurf
+- Gemini CLI
+- Andere Coding-Agenten
 
-Most projects should not begin with a complex auto-updater. A good first update system can simply check a public JSON file, compare versions, show a changelog and open a download link.
+---
 
-## Typical use cases
+## Unterstützte Plattformen
 
-This skill works for desktop apps, mobile apps, weather apps, finance apps, map apps, AI clients, SaaS clients, shop clients, games, internal tools and self-hosted software.
+| Kategorie | Plattformen |
+|-----------|-------------|
+| Desktop-Apps | Flutter Desktop, Electron, Tauri, native macOS, native Windows, native Linux |
+| Mobile Apps | Flutter Mobile, native iOS, native Android |
+| Spiele | Game-Clients, Content-Updates, Patchsysteme |
+| API-Clients | Wetter-Apps, Finanz-Apps, KI-Clients, SaaS-Clients |
+| Server-Software | Self-Hosted-Apps, Open-Source-Projekte, interne Tools |
 
-## Skill file
+---
 
-The main skill lives here:
+## Warum existiert dieser Skill?
+
+Viele Apps brauchen irgendwann Updates. Das klingt simpel, wirft aber schnell wichtige Fragen auf:
+
+- Woher weiß die App, dass eine neue Version existiert?
+- Wo werden Installer gespeichert?
+- Was passiert wenn eine alte Version nicht mehr mit der API kompatibel ist?
+- Wie werden Downloads verifiziert?
+- Sind Updates optional oder verpflichtend?
+
+Dieser Skill beantwortet diese Fragen Schritt für Schritt — bevor Code geschrieben wird.
+
+---
+
+## Philosophie
+
+> Planen vor Implementieren.  
+> Sicherheit vor Komfort.  
+> Einfach starten, sicher wachsen.
+
+Die meisten Projekte sollten nicht mit einem komplexen Auto-Updater beginnen. Ein gutes erstes Update-System prüft einfach eine JSON-Datei, vergleicht Versionen, zeigt ein Changelog und öffnet einen Download-Link.
+
+---
+
+## Update-Reifegrade
+
+| Stufe | Name | Beschreibung |
+|-------|------|-------------|
+| 1 | Manueller Update-Hinweis | App prüft eine Versionsdatei und öffnet einen Download-Link |
+| 2 | Geführter Download | App zeigt Changelog, lädt den Installer herunter und verifiziert ihn |
+| 3 | Automatischer Updater | App lädt herunter, verifiziert und installiert Updates sicher |
+| 4 | Sicheres Release-System | Signierung, Checksummen, erzwungene Updates, Rollback |
+| 5 | Kommerzielle Distribution | Lizenzprüfung, Staged Rollout, Enterprise-Kanäle |
+
+**Die meisten Projekte starten bei Stufe 1.**
+
+---
+
+## Schnellstart
+
+### Schritt 1 — Skill-Datei lesen
 
 ```text
 skill/SKILL.md
 ```
 
-## Example prompt for Codex or Claude Code
+### Schritt 2 — Agenten-Prompt
+
+Für ChatGPT Codex oder Claude Code:
 
 ```text
-Use the MGD App Updater Skill. Analyse my project and create a phase 1 update roadmap. Do not write code yet. First explain the architecture, risks, checklist and open questions.
+Verwende den MGD App Updater Skill. Analysiere mein Projekt und erstelle eine Phase-1-Roadmap.
+Schreibe noch keinen Code. Erkläre zuerst Architektur, Risiken, Checkliste und offene Fragen.
 ```
 
-## Suggested commands
+### Schritt 3 — Minimalstruktur
+
+Die einfachste Update-Architektur:
 
 ```text
-/updateservice analyse
-/updateservice roadmap
-/updateservice architecture
-/updateservice phase1
-/updateservice phase2
-/updateservice phase3
-/updateservice security
-/updateservice flutter
-/updateservice electron
-/updateservice tauri
-/updateservice game
-/updateservice mobile
-/updateservice api-client
-/updateservice weather-app
-/updateservice selfhosted
-/updateservice checklist
+App
+↓ lädt
+https://updates.example.com/example-app/platform/latest.json
+↓ vergleicht Version
+Update-Dialog
+↓ öffnet
+Download-URL im Browser
 ```
 
-## Maturity levels
-
-| Level | Name | Description |
-| --- | --- | --- |
-| 1 | Manual update notice | App checks a version file and opens a download link. |
-| 2 | Guided download | App shows changelog, downloads the installer and verifies it. |
-| 3 | Automatic updater | App downloads, verifies and installs updates safely. |
-| 4 | Secure release system | Signing, checksums, forced updates and rollback strategy. |
-| 5 | Commercial delivery | License checks, staged rollout and enterprise channels. |
-
-## Minimal update manifest
+### Schritt 4 — Minimales Update-Manifest
 
 ```json
 {
@@ -83,27 +124,157 @@ Use the MGD App Updater Skill. Analyse my project and create a phase 1 update ro
   "minimumVersion": "1.0.0",
   "downloadUrl": "https://updates.example.com/example-app/releases/example-app-1.0.1-macos.dmg",
   "changelog": [
-    "Added update check",
-    "Improved settings",
-    "Fixed startup issue"
+    "Update-Prüfung hinzugefügt",
+    "Einstellungen verbessert",
+    "Startproblem behoben"
   ],
   "forceUpdate": false,
   "publishedAt": "2026-06-17"
 }
 ```
 
-## Important security rule
+---
 
-Never put private GitHub tokens, API secrets, signing keys, license secrets or server credentials into a shipped app. Anything shipped to users must be treated as extractable.
+## Skill-Befehle
 
-## Documentation
+```text
+/updateservice analyse          — Projekt analysieren
+/updateservice roadmap          — Update-Roadmap erstellen
+/updateservice architecture     — Architektur planen
+/updateservice phase1           — Phase 1 umsetzen
+/updateservice phase2           — Phase 2 umsetzen
+/updateservice phase3           — Phase 3 umsetzen
+/updateservice security         — Sicherheitsanalyse
+/updateservice flutter          — Flutter-spezifische Planung
+/updateservice electron         — Electron-spezifische Planung
+/updateservice tauri            — Tauri-spezifische Planung
+/updateservice game             — Spiel-Client-Planung
+/updateservice mobile           — Mobile-App-Planung
+/updateservice api-client       — API-Client-Planung
+/updateservice weather-app      — Wetter-App-Beispiel
+/updateservice selfhosted       — Self-Hosted-Planung
+/updateservice github           — GitHub-Releases-Workflow
+/updateservice checklist        — Passende Checkliste
+```
 
-Start with `wiki/01-introduction.md` and then continue with the phase and platform checklists.
+---
 
-## License
+## Beispiele
 
-MIT License. See `LICENSE`.
+| Beispiel | Datei |
+|----------|-------|
+| Flutter Desktop | [`examples/flutter-desktop.md`](examples/flutter-desktop.md) |
+| Electron | [`examples/electron.md`](examples/electron.md) |
+| Tauri | [`examples/tauri.md`](examples/tauri.md) |
+| Spiel-Client | [`examples/game-client.md`](examples/game-client.md) |
+| Wetter-App | [`examples/weather-app.md`](examples/weather-app.md) |
+| API-Client | [`examples/api-client.md`](examples/api-client.md) |
+| PHP Update-API | [`examples/php-update-api.md`](examples/php-update-api.md) |
 
-## Imprint
+---
 
-See `IMPRESSUM.md`.
+## Projektstruktur
+
+```text
+README.md                          — Diese Datei
+LICENSE                            — MIT-Lizenz
+IMPRESSUM.md                       — Impressum (§ 5 TMG)
+CHANGELOG.md                       — Versionshistorie
+CONTRIBUTING.md                    — Beitrag leisten
+
+skill/
+  SKILL.md                         — Kern-Skill für KI-Agenten
+
+wiki/
+  01-Einfuehrung.md
+  02-Grundlagen.md
+  03-Architektur.md
+  04-Phase-1-Manuelle-Updates.md
+  05-Phase-2-Gefuehrte-Downloads.md
+  06-Phase-3-Auto-Updater.md
+  07-Sicherheit.md
+  08-Plattformen.md
+  09-API-Clients.md
+  10-Spiele-und-Content-Updates.md
+  11-GitHub-Releases.md
+  12-Self-Hosted-Updates.md
+  13-Lizenzserver.md
+  14-FAQ.md
+  15-Glossar.md
+
+examples/
+  flutter-desktop.md
+  electron.md
+  tauri.md
+  game-client.md
+  weather-app.md
+  api-client.md
+  php-update-api.md
+
+templates/
+  latest.json
+  version-api-response.json
+  remote-config.json
+  release-process.md
+
+checklists/
+  phase-1.md
+  phase-2.md
+  phase-3.md
+  macos.md
+  windows.md
+  linux.md
+```
+
+---
+
+## Sicherheit
+
+Update-Systeme sind sicherheitskritisch. Die wichtigsten Regeln:
+
+- Niemals private Tokens, API-Keys oder Signing-Zertifikate in eine ausgelieferte App einbetten
+- Niemals Remote-Skripte ohne Verifikation ausführen
+- Niemals Binärdateien ohne Integritätsprüfung ersetzen
+- Immer HTTPS für Manifeste und Downloads
+- Checksummen für Phase 2, Signaturen für Phase 3+
+
+Alles was in eine App ausgeliefert wird, muss als extrahierbar betrachtet werden.
+
+Mehr dazu: [`wiki/07-Sicherheit.md`](wiki/07-Sicherheit.md)
+
+---
+
+## Öffentlichkeitsprinzip
+
+Dieses Repository ist öffentlich. Daher gilt:
+
+- Keine privaten Repository-URLs
+- Keine Kundenprojekte, keine NDA-Inhalte
+- Keine internen Server oder private Infrastruktur
+- Im Zweifel: nicht erwähnen
+
+Beispiele verwenden immer generische Namen wie `example-app`, `updates.example.com` und `api.example.com`.
+
+---
+
+## Wiki
+
+Das vollständige Handbuch beginnt hier:
+
+**→ [`wiki/01-Einfuehrung.md`](wiki/01-Einfuehrung.md)**
+
+---
+
+## Lizenz
+
+MIT License. Siehe [`LICENSE`](LICENSE).
+
+---
+
+## Impressum
+
+Siehe [`IMPRESSUM.md`](IMPRESSUM.md).
+
+---
+
+*MGD App Updater Skill — von [Michael Gahn DESIGN](https://michael-gahn.de)*

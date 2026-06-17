@@ -1,32 +1,36 @@
 # MGD App Updater Skill
 
-## Purpose
+## Zweck
 
-MGD App Updater Skill helps developers and AI coding agents plan, document and implement software update systems in a safe, maintainable and incremental way.
+Der MGD App Updater Skill hilft Entwicklern und KI-Agenten dabei, Software-Update-Systeme sicher, wartbar und schrittweise zu planen, zu dokumentieren und umzusetzen.
 
-The skill is universal. It must not assume a specific private project, company, repository, framework or hosting provider. It should work for desktop apps, mobile apps, games, SaaS clients, API clients, internal tools, open-source software and closed-source commercial software.
+Der Skill ist universell. Er darf kein bestimmtes privates Projekt, kein Unternehmen, kein privates Repository, kein Framework und keinen Hosting-Anbieter voraussetzen. Er soll für Desktop-Apps, Mobile Apps, Spiele, SaaS-Clients, API-Clients, interne Tools, Open-Source-Software und kommerzielle Closed-Source-Software funktionieren.
 
-## Core instruction
+---
 
-When this skill is used, do not immediately write code.
+## Kernregel
 
-First:
+**Wenn dieser Skill aufgerufen wird, sofort keinen Code schreiben.**
 
-1. Analyse the project type.
-2. Identify target platforms.
-3. Identify the release model.
-4. Identify whether the software is open source or closed source.
-5. Identify whether updates are public, private, licensed or internal.
-6. Identify whether the app depends on external APIs or remote content.
-7. Recommend the simplest safe update architecture.
-8. Create a phased roadmap.
-9. Create checklists.
-10. Explain security risks.
-11. Ask missing questions.
+Stattdessen zuerst:
 
-Only after this planning phase should code, configuration files or scripts be created.
+1. Den Projekttyp analysieren
+2. Zielplattformen identifizieren
+3. Das Release-Modell klären
+4. Feststellen ob die Software Open Source oder Closed Source ist
+5. Feststellen ob Updates öffentlich, privat, lizenziert oder intern sind
+6. Feststellen ob die App von externen APIs oder Remote-Inhalten abhängt
+7. Die einfachste sichere Update-Architektur empfehlen
+8. Eine phasenweise Roadmap erstellen
+9. Checklisten erstellen
+10. Sicherheitsrisiken erklären
+11. Offene Fragen stellen
 
-## Supported triggers
+Erst nach dieser Planungsphase dürfen Code, Konfigurationsdateien oder Skripte erstellt werden.
+
+---
+
+## Unterstützte Trigger-Befehle
 
 ```text
 /updateservice analyse
@@ -48,47 +52,60 @@ Only after this planning phase should code, configuration files or scripts be cr
 /updateservice checklist
 ```
 
-## Security-first rules
+---
 
-Never recommend embedding private GitHub tokens, private API keys, signing certificates, license secrets or server credentials into a shipped application.
+## Sicherheitsregeln
 
-Never recommend executing remote update scripts without verification.
+Niemals empfehlen, private GitHub-Tokens, private API-Keys, Signing-Zertifikate, Lizenz-Secrets oder Server-Credentials in eine ausgelieferte Anwendung einzubetten.
 
-Never recommend replacing application binaries without checking integrity.
+Niemals empfehlen, Remote-Update-Skripte ohne Verifikation auszuführen.
 
-Never publish or infer private repository names, private project names, internal infrastructure details or client information.
+Niemals empfehlen, Anwendungs-Binärdateien zu ersetzen ohne Integrität zu prüfen.
 
-When in doubt, use generic examples such as `example-app`, `updates.example.com` and `api.example.com`.
+Niemals private Repository-Namen, private Projektnamen, interne Infrastrukturdetails oder Kundeninformationen veröffentlichen oder ableiten.
 
-## Maturity levels
+Im Zweifel generische Beispiele verwenden: `example-app`, `updates.example.com`, `api.example.com`.
 
-Level 1: Manual update notice. The app checks a public version file and shows a download link.
+---
 
-Level 2: Guided download. The app shows changelog, downloads the installer and verifies it.
+## Update-Reifegrade
 
-Level 3: Automatic updater. The app downloads, verifies and installs updates through a trusted mechanism.
+**Stufe 1 — Manueller Update-Hinweis**
+Die App prüft eine öffentliche Versionsdatei und zeigt einen Download-Link.
 
-Level 4: Secure release system. Signing, checksums, forced updates, rollback and release channels are included.
+**Stufe 2 — Geführter Download**
+Die App zeigt das Changelog, lädt den Installer herunter und verifiziert ihn.
 
-Level 5: Commercial delivery. License checks, staged rollout, customer channels and enterprise policies are included.
+**Stufe 3 — Automatischer Updater**
+Die App lädt herunter, verifiziert und installiert Updates über einen vertrauenswürdigen Mechanismus.
 
-Most projects should start at Level 1.
+**Stufe 4 — Sicheres Release-System**
+Signierung, Checksummen, erzwungene Updates, Rollback und Release-Kanäle sind enthalten.
 
-## Default phase 1 architecture
+**Stufe 5 — Kommerzielle Distribution**
+Lizenzprüfung, Staged Rollout, Kundenkanäle und Enterprise-Richtlinien sind enthalten.
+
+Die meisten Projekte starten bei Stufe 1.
+
+---
+
+## Standard Phase-1-Architektur
 
 ```text
-Application
-↓ fetches
+Anwendung
+↓ lädt
 https://updates.example.com/example-app/platform/latest.json
-↓ compares version
-Update dialog
-↓ opens
-Download URL
+↓ vergleicht Version
+Update-Dialog
+↓ öffnet
+Download-URL
 ```
 
-The application should know its app id, installed version, platform and update channel. It fetches the manifest, compares versions, checks whether the installed version is below the minimum supported version, shows a changelog and opens the download link.
+Die Anwendung muss ihre App-ID, die installierte Version, die Plattform und den Update-Kanal kennen. Sie lädt das Manifest, vergleicht Versionen, prüft ob die installierte Version unter der Mindestversion liegt, zeigt ein Changelog und öffnet den Download-Link.
 
-## Example manifest
+---
+
+## Beispiel-Manifest
 
 ```json
 {
@@ -98,64 +115,78 @@ The application should know its app id, installed version, platform and update c
   "minimumVersion": "1.0.0",
   "downloadUrl": "https://updates.example.com/example-app/releases/example-app-1.0.1-macos.dmg",
   "changelog": [
-    "Added update check window",
-    "Improved settings screen",
-    "Fixed startup issue"
+    "Update-Fenster hinzugefügt",
+    "Einstellungen verbessert",
+    "Startproblem behoben"
   ],
   "forceUpdate": false,
   "publishedAt": "2026-06-17"
 }
 ```
 
-## API-client guidance
+---
 
-For apps that depend on external APIs, such as weather apps, finance apps, map apps, AI clients or SaaS clients, the update plan must also check API compatibility.
+## Hinweise für API-Clients
 
-Ask whether the app uses external API keys, backend endpoints, remote configuration, rate limits or provider-specific SDKs. Do not expose API keys in examples. If the app may break when an API contract changes, recommend `minimumVersion`, `apiCompatibilityVersion` or a remote configuration manifest.
+Bei Apps die von externen APIs abhängen — zum Beispiel Wetter-Apps, Finanz-Apps, Karten-Apps, KI-Clients oder SaaS-Clients — muss der Update-Plan auch API-Kompatibilität prüfen.
 
-## Questions to ask before implementation
+Fragen stellen: Nutzt die App externe API-Keys, Backend-Endpunkte, Remote-Konfiguration, Rate-Limits oder anbieterspezifische SDKs? API-Keys dürfen nicht in Beispielen auftauchen. Wenn die App brechen kann wenn sich ein API-Vertrag ändert, `minimumVersion`, `apiCompatibilityVersion` oder ein Remote-Konfigurations-Manifest empfehlen.
 
-1. What type of application is this?
-2. Which platforms are supported now?
-3. Which platforms are planned later?
-4. Is the application open source or closed source?
-5. Will downloads be public, private, licensed or internal?
-6. Should phase 1 only show an update notice?
-7. Is a manual installer acceptable?
-8. Is there already a release server, website, CDN or GitHub Releases workflow?
-9. Does the app need mandatory updates?
-10. Does the app need content updates separate from binary app updates?
-11. Does the app depend on external APIs?
-12. Does the app need API compatibility checks?
-13. Are there legal, privacy or security requirements?
-14. Who is allowed to publish releases?
-15. Is code signing already available?
+---
 
-## Output format for AI agents
+## Fragen vor der Implementierung
 
-1. Short project interpretation
-2. Recommended update maturity level
-3. Proposed architecture
-4. Phase roadmap
-5. Security notes
-6. Checklists
-7. Required decisions
-8. Next concrete step
+1. Um welchen Typ von Anwendung handelt es sich?
+2. Welche Plattformen werden jetzt unterstützt?
+3. Welche Plattformen sind später geplant?
+4. Ist die Anwendung Open Source oder Closed Source?
+5. Sind Downloads öffentlich, privat, lizenziert oder intern?
+6. Soll Phase 1 nur einen Update-Hinweis zeigen?
+7. Ist ein manueller Installer akzeptabel?
+8. Gibt es bereits einen Release-Server, eine Website, ein CDN oder einen GitHub-Releases-Workflow?
+9. Braucht die App erzwungene Updates?
+10. Braucht die App Content-Updates getrennt von Binär-App-Updates?
+11. Hängt die App von externen APIs ab?
+12. Braucht die App API-Kompatibilitätsprüfungen?
+13. Gibt es rechtliche, Datenschutz- oder Sicherheitsanforderungen?
+14. Wer darf Releases veröffentlichen?
+15. Ist Code-Signierung bereits vorhanden?
 
-## What not to build first
+---
 
-Do not start with a complex auto-updater unless the project already requires it.
+## Ausgabeformat für KI-Agenten
 
-Do not start with delta updates.
+Nach der Analyse immer in dieser Reihenfolge ausgeben:
 
-Do not start with a license server unless commercial licensing is already part of the current requirement.
+1. Kurze Projektinterpretation
+2. Empfohlener Update-Reifegrad
+3. Vorgeschlagene Architektur
+4. Phasen-Roadmap
+5. Sicherheitshinweise
+6. Checklisten
+7. Erforderliche Entscheidungen
+8. Nächster konkreter Schritt
 
-Do not start with hidden background installation unless the platform, signing and user trust model are clear.
+---
 
-Do not use private GitHub repositories as a public customer update source if that requires embedding access tokens in the shipped app.
+## Was nicht zuerst bauen
 
-## Public information rule
+Keinen komplexen Auto-Updater bauen wenn das Projekt noch keinen stabilen Release-Prozess hat.
 
-For public documentation and public repositories, mention only public and generic information. Do not include private projects, private repository URLs, customer names, NDA information or internal infrastructure.
+Keine Delta-Updates zu Beginn.
 
-If the visibility of a project is unknown, treat it as private and do not mention it.
+Keinen Lizenzserver bauen wenn kommerzielle Lizenzierung noch keine aktuelle Anforderung ist.
+
+Keine versteckte Hintergrundinstallation ohne dass Plattform, Signierung und Nutzer-Vertrauensmodell klar sind.
+
+Keine privaten GitHub-Repositories als öffentliche Kunden-Update-Quelle verwenden wenn das das Einbetten von Access-Tokens in die ausgelieferte App erfordern würde.
+
+---
+
+## Öffentlichkeitsregel
+
+Für öffentliche Dokumentation und öffentliche Repositories nur öffentliche und generische Informationen erwähnen. Keine privaten Projekte, private Repository-URLs, Kundennamen, NDA-Informationen oder interne Infrastruktur.
+
+Ist die Sichtbarkeit eines Projekts unbekannt, als privat behandeln und nicht erwähnen.
+
+Diese Regel gilt für alle Ausgaben, alle Empfehlungen und alle Beispiele.

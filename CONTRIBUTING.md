@@ -1,27 +1,61 @@
-# Contributing
+# Beitrag leisten
 
-Thank you for considering a contribution to MGD App Updater Skill.
+Danke, dass du einen Beitrag zum MGD App Updater Skill erwägst.
 
-The goal of this project is to help people and AI coding agents plan update systems safely and clearly.
+Das Ziel dieses Projekts ist es, Menschen und KI-Agenten dabei zu helfen, Update-Systeme sicher und verständlich zu planen.
 
-## Good contributions
+---
 
-Clearer explanations, safer examples, better checklists, additional platform examples, translations and corrections are welcome.
+## Willkommene Beiträge
 
-## What to avoid
+- Klarere Erklärungen und bessere Formulierungen
+- Sicherere Beispiele
+- Verbesserte Checklisten
+- Neue Plattform-Beispiele
+- Korrekturen und Ergänzungen
 
-Do not add examples that embed private tokens in client apps.
+---
 
-Do not add instructions that execute remote code without verification.
+## Was vermieden werden soll
 
-Do not add private project names, private repository URLs, customer data, NDA information or internal infrastructure details.
+- Keine Beispiele einreichen die private Tokens in Client-Apps einbetten
+- Keine Anleitungen zum Ausführen von Remote-Code ohne Verifikation
+- Keine privaten Projektnamen, private Repository-URLs, Kundendaten, NDA-Informationen oder interne Infrastrukturdetails
 
-Use generic examples such as `example-app`, `updates.example.com` and `api.example.com`.
+Generische Beispiele verwenden: `example-app`, `updates.example.com`, `api.example.com`.
 
-## Pull request checklist
+---
 
-- [ ] The contribution is understandable for beginners.
-- [ ] Security implications are explained.
-- [ ] No secrets are included.
-- [ ] No private project or customer information is included.
-- [ ] The solution is neutral unless the file is explicitly framework-specific.
+## Öffentlichkeitsregel
+
+Dieses Repository ist öffentlich. Alles was hier eingereicht wird, ist öffentlich sichtbar.
+
+Daher gilt:
+- Niemals private Repositories erwähnen
+- Niemals Kundenprojekte erwähnen
+- Niemals interne Server oder private URLs erwähnen
+- Im Zweifel: nicht erwähnen
+
+---
+
+## Checkliste für Pull Requests
+
+- [ ] Der Beitrag ist für Einsteiger verständlich
+- [ ] Sicherheitsaspekte sind erklärt
+- [ ] Keine Secrets enthalten
+- [ ] Keine privaten Projekt- oder Kundeninformationen enthalten
+- [ ] Die Lösung ist neutral, außer die Datei ist explizit framework-spezifisch
+- [ ] Deutsche Sprache (außer JSON, Code und technische Feldnamen)
+
+---
+
+## Sprache
+
+Alle Dokumentationsdateien sind auf Deutsch.
+
+Ausnahmen:
+- JSON-Beispiele
+- Code-Beispiele
+- API-Felder und technische Feldnamen
+
+Diese bleiben Englisch.
