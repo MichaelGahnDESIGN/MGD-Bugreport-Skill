@@ -99,4 +99,4 @@ So klein wie möglich. Delta-Patching (nur geänderte Dateien) reduziert die Gr�
 
 ## Nächster Schritt
 
-→ Weiter mit [`15-Glossar.md`](15-Glossar.md)
+→ Weiter mit [`17-Glossar.md`](17-Glossar.md)

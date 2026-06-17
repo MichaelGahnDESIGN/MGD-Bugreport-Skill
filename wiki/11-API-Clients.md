@@ -96,4 +96,4 @@ Optionen:
 
 ## Nächster Schritt
 
-→ Weiter mit [`10-Spiele-und-Content-Updates.md`](10-Spiele-und-Content-Updates.md)
+→ Weiter mit [`12-Spiele-und-Content-Updates.md`](12-Spiele-und-Content-Updates.md)

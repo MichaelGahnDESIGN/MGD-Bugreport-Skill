@@ -96,4 +96,4 @@ jobs:
 
 ## Nächster Schritt
 
-→ Weiter mit [`12-Self-Hosted-Updates.md`](12-Self-Hosted-Updates.md)
+→ Weiter mit [`14-Self-Hosted-Updates.md`](14-Self-Hosted-Updates.md)
