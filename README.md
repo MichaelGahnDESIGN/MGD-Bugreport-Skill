@@ -338,12 +338,17 @@ Alle Beispiele verwenden generische Namen: `example-app`, `feedback.example.com`
 
 ---
 
-## Verwandte MGD Skills
+## Verwandte MGD Projekte
 
-| Skill | Beschreibung |
-|-------|-------------|
-| [MGD-App-Updater-Skill](https://github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill) | Professionelle Software-Update-Systeme |
-| [MGD-ToDo-SKILL](https://github.com/MichaelGahnDESIGN/MGD-ToDo-SKILL) | Aufgabenmanagement in Apps |
+| Projekt | Beschreibung |
+|---------|-------------|
+| [MGD-App-Updater-Skill](https://github.com/MichaelGahnDESIGN/MGD-App-Updater-Skill) | Software-Update-Systeme planen und implementieren |
+| [MGD-ToDo-SKILL](https://github.com/MichaelGahnDESIGN/MGD-ToDo-SKILL) | Aufgabenmanagement direkt im Projekt-Repo |
+| [MGD-AI-PlayTest-Skill](https://github.com/MichaelGahnDESIGN/MGD-AI-PlayTest-Skill) | Live-Playtest aus Nutzerperspektive |
+| [MGD-DEV-Skill](https://github.com/MichaelGahnDESIGN/MGD-DEV-Skill) | Release, Sync, Backup und Wissensdokumentation |
+| [MGD-AI-Basic-Projektordner](https://github.com/MichaelGahnDESIGN/MGD-AI-Basic-Projektordner) | Projektvorlage für KI-Agenten |
+
+→ Alle öffentlichen Projekte: [github.com/MichaelGahnDESIGN](https://github.com/MichaelGahnDESIGN)
 
 ---
 

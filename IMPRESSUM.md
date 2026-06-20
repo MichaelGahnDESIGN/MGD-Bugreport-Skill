@@ -1,26 +1,21 @@
 # Impressum
 
-Angaben gemäß § 5 TMG.
+Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)
 
-## Anbieter
-
-Michael Gahn DESIGN  
+**Michael Gahn DESIGN**  
 Michael Gahn  
-Deutschland
+Dr.-Theodor-Brugsch Str. 12  
+08529 Plauen  
+Sachsen, Deutschland  
 
-Website: https://michael-gahn.de  
-GitHub: https://github.com/MichaelGahnDESIGN
+**Telefon:** +49 (0) 176 557 647 48  
+**E-Mail:** Anfrage@Michael-Gahn.de  
+**Website:** [michael-gahn.de](https://michael-gahn.de)  
+**GitHub:** [github.com/MichaelGahnDESIGN](https://github.com/MichaelGahnDESIGN)  
 
-## Kontakt
+---
 
-E-Mail: michael.gahn@googlemail.com
+Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:  
+USt-ID: DE288143343  
 
-## Verantwortlich für den Inhalt
-
-Michael Gahn
-
-## Hinweis
-
-Dieses Repository stellt eine frei nutzbare Dokumentations-, Planungs- und Skill-Struktur für Feedback- und Bug-Report-Systeme bereit. Es handelt sich nicht um Rechtsberatung, Datenschutzberatung oder verbindliche DSGVO-Zertifizierung.
-
-Bei produktiven Feedback-Systemen, kommerzieller Software, personenbezogenen Daten oder sicherheitskritischen Anwendungen sollten zusätzlich fachkundige Beratung, Datenschutzprüfungen und plattformspezifische Anforderungen berücksichtigt werden.
+Steuernummer: 223/222/02451  
