@@ -364,6 +364,20 @@ MIT License. Siehe [`LICENSE`](LICENSE).
 
 ---
 
+## Verwandte MGD Projekte
+
+| Projekt | Beschreibung |
+|---------|-------------|
+| [MGD-Bugreport-Skill](https://github.com/MichaelGahnDESIGN/MGD-Bugreport-Skill) | Feedback-Hub: Bug-Meldung, Ideen und Support |
+| [MGD-ToDo-SKILL](https://github.com/MichaelGahnDESIGN/MGD-ToDo-SKILL) | Aufgabenmanagement direkt im Projekt-Repo |
+| [MGD-AI-PlayTest-Skill](https://github.com/MichaelGahnDESIGN/MGD-AI-PlayTest-Skill) | Live-Playtest aus Nutzerperspektive |
+| [MGD-ProjectClean-Skill](https://github.com/MichaelGahnDESIGN/MGD-ProjectClean-Skill) | Abschluss- und Aufräum-Workflow |
+| [MGD-AI-Basic-Projektordner](https://github.com/MichaelGahnDESIGN/MGD-AI-Basic-Projektordner) | Projektvorlage für KI-Agenten |
+
+→ Alle öffentlichen Projekte: [github.com/MichaelGahnDESIGN](https://github.com/MichaelGahnDESIGN)
+
+---
+
 ## Impressum
 
 Siehe [`IMPRESSUM.md`](IMPRESSUM.md).
